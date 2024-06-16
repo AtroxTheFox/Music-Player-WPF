@@ -1,0 +1,82 @@
+﻿<Window x:Class="Music_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Music_App"
+        mc:Ignorable="d"
+        Height="640" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Title="Music Player">
+    <Grid Background="Transparent">
+        <materialDesign:Card Margin="10" UniformCornerRadius="20" Background="Transparent">
+            <StackPanel>
+                <StackPanel.Background>
+                    <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.3,1">
+                        <GradientStop Color="#121212" Offset="1" />
+                        <GradientStop Color="#292929" Offset="0" />
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <Grid Height="70">
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Left" Margin="20 0" ToolTip="Open File" x:Name="btnFile" Click="btnFile_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Folder" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="20 0" ToolTip="Close" x:Name="btnClose" Click="btnClose_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Close" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <Image Margin="10" Height="200" x:Name="AlbumCover" Stretch="Uniform" Source="Images/DefaultAlbumCover.png" />
+                <Viewbox Margin="10" Height="30">
+                    <TextBlock FontSize="19" Text="Song name" Foreground="White" TextAlignment="Center" FontWeight="SemiBold" x:Name="lblSongname">
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation From="300" To="-300" Duration="0:0:10" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+                        <TextBlock.RenderTransform>
+                            <TranslateTransform/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Viewbox>
+                <Grid Margin="0 30 0 0">
+                    <TextBlock FontSize="11" Text="0:00" Margin="20 0" Foreground="White" FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Left" x:Name="lblCurrenttime" />
+                    <TextBlock FontSize="11" Text="0:00" Margin="20 0" Foreground="White" FontWeight="ExtraLight" TextAlignment="Center" HorizontalAlignment="Right" x:Name="lblMusiclength" />
+                </Grid>
+                <Slider Value="0" Minimum="0" Margin="20,0,20,0" Foreground="#FF731101" x:Name="TimerSlider" ValueChanged="TimerSlider_ValueChanged" PreviewMouseLeftButtonDown="TimerSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="TimerSlider_PreviewMouseLeftButtonUp"/>
+                <WrapPanel HorizontalAlignment="Center" Margin="0 30">
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Previous" x:Name="btnPRewind" Click="btnPRewind_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="FastRewind" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play" x:Name="btnPlay" Click="btnPlay_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="Play" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource CActionButtons}" HorizontalAlignment="Right" Margin="10 0" ToolTip="Play Next" x:Name="btnPNext" Click="btnPNext_Click">
+                        <StackPanel Margin="-5">
+                            <materialDesign:PackIcon Kind="FastForward" Width="20" Height="20" />
+                        </StackPanel>
+                    </Button>
+                </WrapPanel>
+                <ListBox x:Name="TrackList" SelectionChanged="TrackList_SelectionChanged" Background="Transparent" Foreground="White" Height="60" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                <TextBlock Margin="10" FontSize="14" Text="Next Song: " Foreground="White" TextAlignment="Center" FontWeight="SemiBold" x:Name="lblNextSong" />
+                <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" MediaOpened="mediaElement_MediaOpened" MediaEnded="mediaElement_MediaEnded" />
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</Window>
