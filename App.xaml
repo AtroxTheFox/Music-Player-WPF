@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionButton}" x:Key="CActionButtons">
                 <Setter Property="Background" Value="#731101" />
                 <Setter Property="Foreground" Value="White" />
